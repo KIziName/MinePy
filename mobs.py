@@ -1,7 +1,7 @@
 import pygame
 import math
 import random
-from Blocks import *
+from blocks import *
 
 class DroppedItem:
     def __init__(self, x, y, item_type, count=1):
