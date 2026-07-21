@@ -2,7 +2,7 @@ import pygame
 import time
 import sys
 from blocks import TARGET_FPS
-from Game import Game
+from game import Game
 
 def main():
     game = Game()
