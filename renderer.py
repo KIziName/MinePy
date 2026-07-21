@@ -1,5 +1,5 @@
 import pygame
-from Blocks import *
+from blocks import *
 
 def draw_item_icon(surface, item_type, x, y, size=32):
     """Детализированная отрисовка предметов (включая мечи и кирки)"""
