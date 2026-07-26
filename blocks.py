@@ -159,7 +159,6 @@ ITEM_COAL = 32
 ITEM_DIAMOND = 33
 
 ITEM_WOOD_SHIELD = 24
-ITEM_IRON_ARMOR = 25
 
 BLOCK_TALL_GRASS = 34
 BLOCK_FLOWER_RED = 35
@@ -187,9 +186,6 @@ ITEM_SWORD_STONE = 51
 ITEM_PICKAXE_STONE = 52
 ITEM_PICKAXE_DIAMOND = 53
 
-ITEM_GOLD_ARMOR = 54
-ITEM_DIAMOND_ARMOR = 55
-
 # ------------------- НОВЫЕ РУДЫ (второе расширение) -------------------
 BLOCK_SILVER_ORE = 100
 BLOCK_PLATINUM_ORE = 101
@@ -214,12 +210,6 @@ ITEM_SWORD_MITHRIL = 115
 ITEM_PICKAXE_MITHRIL = 116
 ITEM_SWORD_ADAMANTITE = 117
 ITEM_PICKAXE_ADAMANTITE = 118
-
-# ------------------- НОВАЯ БРОНЯ -------------------
-ITEM_SILVER_ARMOR = 119
-ITEM_PLATINUM_ARMOR = 120
-ITEM_MITHRIL_ARMOR = 121
-ITEM_ADAMANTITE_ARMOR = 122
 
 # ------------------- НОВЫЕ БЛОКИ ДЛЯ СТРОИТЕЛЬСТВА -------------------
 BLOCK_FENCE = 123
@@ -283,12 +273,6 @@ ITEM_AXE_NETHERITE = 216
 ITEM_SWORD_CRYSTAL = 217
 ITEM_PICKAXE_CRYSTAL = 218
 
-# ------------------- БРОНЯ новых материалов -------------------
-ITEM_TITAN_ARMOR = 219
-ITEM_COBALT_ARMOR = 220
-ITEM_NETHERITE_ARMOR = 221
-ITEM_CRYSTAL_ARMOR = 222
-
 # ------------------- ДРУГОЕ ОРУЖИЕ -------------------
 ITEM_HAMMER = 223
 ITEM_SPEAR = 224
@@ -332,7 +316,7 @@ ITEM_POTATO = 251
 ITEM_TOMATO = 252
 ITEM_CUCUMBER = 253
 
-# ------------------- НОВЫЕ ЗЕЛЬЯ (второе расширение) -------------------
+# ------------------- НОВЫЕ ЗЕЛЬЯ  -------------------
 ITEM_POTION_NIGHT_VISION = 254
 ITEM_POTION_INVISIBILITY = 255
 ITEM_POTION_WATER_BREATHING = 256
@@ -376,7 +360,7 @@ ITEM_HOE = 283
 ITEM_WATERING_CAN = 284
 ITEM_FERTILIZER = 285
 
-# ------------------- РЕСУРСЫ (второе расширение) -------------------
+# ------------------- РЕСУРСЫ -------------------
 ITEM_LEATHER_STRIP = 286
 ITEM_SCALE = 287
 ITEM_SHELL = 288
@@ -464,12 +448,9 @@ ITEM_NAMES = {
     ITEM_PICKAXE_GOLD: "Зол. кирка", ITEM_GEL: "Гель", ITEM_POTION: "Зелье", ITEM_BIG_POTION: "Б. Зелье",
     ITEM_COIN: "Монета", ITEM_LENS: "Линза", ITEM_TORCH: "Факел", ITEM_BONE: "Кость",
     ITEM_COPPER_INGOT: "Медн. слиток", ITEM_IRON_INGOT: "Жел. слиток", ITEM_GOLD_INGOT: "Зол. слиток",
-    ITEM_COAL: "Уголь", ITEM_DIAMOND: "Алмаз", ITEM_WOOD_SHIELD: "Дер. щит", ITEM_IRON_ARMOR: "Жел. броня",
-    BLOCK_TALL_GRASS: "Высокая трава",
-    BLOCK_FLOWER_RED: "Красный цветок",
+    ITEM_COAL: "Уголь", ITEM_DIAMOND: "Алмаз", ITEM_WOOD_SHIELD: "Дер. щит", BLOCK_TALL_GRASS: "Высокая трава",BLOCK_FLOWER_RED: "Красный цветок",
     BLOCK_FLOWER_YELLOW: "Жёлтый цветок",
     BLOCK_FLOWER_BLUE: "Синий цветок",
-    # новые
     BLOCK_PLANKS: "Доски",
     BLOCK_BRICK: "Кирпич",
     BLOCK_GLASS: "Стекло",
@@ -486,8 +467,6 @@ ITEM_NAMES = {
     ITEM_SWORD_STONE: "Каменный меч",
     ITEM_PICKAXE_STONE: "Каменная кирка",
     ITEM_PICKAXE_DIAMOND: "Алмазная кирка",
-    ITEM_GOLD_ARMOR: "Золотая броня",
-    ITEM_DIAMOND_ARMOR: "Алмазная броня",
     BLOCK_SILVER_ORE: "Серебр. руда",
     BLOCK_PLATINUM_ORE: "Платин. руда",
     BLOCK_MITHRIL_ORE: "Мифр. руда",
@@ -507,10 +486,6 @@ ITEM_NAMES = {
     ITEM_PICKAXE_MITHRIL: "Мифр. кирка",
     ITEM_SWORD_ADAMANTITE: "Адамант. меч",
     ITEM_PICKAXE_ADAMANTITE: "Адамант. кирка",
-    ITEM_SILVER_ARMOR: "Серебр. броня",
-    ITEM_PLATINUM_ARMOR: "Платин. броня",
-    ITEM_MITHRIL_ARMOR: "Мифр. броня",
-    ITEM_ADAMANTITE_ARMOR: "Адамант. броня",
     BLOCK_FENCE: "Забор",
     BLOCK_LADDER: "Лестница",
     BLOCK_ANVIL: "Наковальня",
@@ -557,10 +532,6 @@ ITEM_NAMES = {
     ITEM_AXE_NETHERITE: "Незеритовый топор",
     ITEM_SWORD_CRYSTAL: "Хрустальный меч",
     ITEM_PICKAXE_CRYSTAL: "Хрустальная кирка",
-    ITEM_TITAN_ARMOR: "Титановая броня",
-    ITEM_COBALT_ARMOR: "Кобальтовая броня",
-    ITEM_NETHERITE_ARMOR: "Незеритовая броня",
-    ITEM_CRYSTAL_ARMOR: "Хрустальная броня",
     ITEM_HAMMER: "Молот",
     ITEM_SPEAR: "Копьё",
     ITEM_CROSSBOW: "Арбалет",
