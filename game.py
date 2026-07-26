@@ -13,10 +13,8 @@ from mobs import DroppedItem, Slime, Zombie, DemonEye, Skeleton, Sheep
 from world import GameWorld
 from save import SaveManager
 
-
 # ------------------- ВСПОМОГАТЕЛЬНЫЕ КЛАССЫ -------------------
 class GamePlayer:
-    """Управление игроком: физика с учётом dt, таймеры в секундах."""
     def __init__(self, world):
         self.world = world
         self.x, self.y = 0, 0
@@ -114,7 +112,6 @@ class GamePlayer:
 
 
 class GameInventory:
-    """Управление инвентарём и крафтом."""
     def __init__(self):
         self.slots = [{'type': BLOCK_AIR, 'count': 0} for _ in range(40)]
         self.slots[0] = {'type': ITEM_SWORD_WOOD, 'count': 1}
@@ -180,7 +177,6 @@ class GameInventory:
 
 
 class GameMobManager:
-    """Управление мобами и дропом с dt, спавн по времени."""
     def __init__(self, world):
         self.world = world
         self.mobs = []
@@ -263,7 +259,6 @@ class GameMobManager:
             m.hp = md['hp']
             self.mobs.append(m)
         self.dropped_items = [DroppedItem.from_dict(it) for it in items_data]
-
 
 # ------------------- ОСНОВНОЙ КЛАСС GAME -------------------
 class Game:
