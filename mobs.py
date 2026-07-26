@@ -66,7 +66,6 @@ class Mob:
     def from_dict(cls, data):
         raise NotImplementedError("from_dict должен быть переопределён в дочернем классе")
 
-
 # ------------------- СЛАЙМ -------------------
 class Slime(Mob):
     def __init__(self, x, y, is_blue=False):
@@ -101,7 +100,6 @@ class Slime(Mob):
         slime.hp = data['hp']
         return slime
 
-
 # ------------------- ЗОМБИ -------------------
 class Zombie(Mob):
     def __init__(self, x, y):
@@ -129,7 +127,6 @@ class Zombie(Mob):
         z = cls(data['x'], data['y'])
         z.hp = data['hp']
         return z
-
 
 # ------------------- ГЛАЗ ДЕМОНА -------------------
 class DemonEye(Mob):
@@ -167,7 +164,6 @@ class DemonEye(Mob):
         d.hp = data['hp']
         return d
 
-
 # ------------------- СКЕЛЕТ -------------------
 class Skeleton(Mob):
     def __init__(self, x, y):
@@ -196,7 +192,6 @@ class Skeleton(Mob):
         s.hp = data['hp']
         return s
 
-
 # ------------------- ОВЦА -------------------
 class Sheep(Mob):
     def __init__(self, x, y):
@@ -218,7 +213,6 @@ class Sheep(Mob):
         sh = cls(data['x'], data['y'])
         sh.hp = data['hp']
         return sh
-
 
 # ------------------- ВЫПАВШИЙ ПРЕДМЕТ -------------------
 class DroppedItem:
