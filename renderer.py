@@ -359,27 +359,7 @@ def draw_item_icon(surface, item_type, x, y, size=32):
         pygame.draw.line(surface, (200,100,50), (x+10, y+12), (x+22, y+12), 1)
         pygame.draw.line(surface, (200,100,50), (x+10, y+16), (x+22, y+16), 1)
 
-    # ======== БРОНЯ ========
-    elif item_type in (ITEM_IRON_ARMOR, ITEM_GOLD_ARMOR, ITEM_DIAMOND_ARMOR,
-                       ITEM_SILVER_ARMOR, ITEM_PLATINUM_ARMOR, ITEM_MITHRIL_ARMOR,
-                       ITEM_ADAMANTITE_ARMOR, ITEM_TITAN_ARMOR, ITEM_COBALT_ARMOR,
-                       ITEM_NETHERITE_ARMOR, ITEM_CRYSTAL_ARMOR):
-        colors = {
-            ITEM_IRON_ARMOR: (207,216,220), ITEM_GOLD_ARMOR: (255,215,0),
-            ITEM_DIAMOND_ARMOR: (0,229,255), ITEM_SILVER_ARMOR: (180,200,210),
-            ITEM_PLATINUM_ARMOR: (220,235,245), ITEM_MITHRIL_ARMOR: (120,200,220),
-            ITEM_ADAMANTITE_ARMOR: (80,50,120), ITEM_TITAN_ARMOR: (100,150,200),
-            ITEM_COBALT_ARMOR: (50,150,200), ITEM_NETHERITE_ARMOR: (80,40,100),
-            ITEM_CRYSTAL_ARMOR: (200,240,255),
-        }
-        col = colors.get(item_type, (200,200,200))
-        pygame.draw.rect(surface, col, (x+6, y+6, size-12, size-12), 0)
-        pygame.draw.rect(surface, (20,20,20), (x+6, y+6, size-12, size-12), 2)
-
-    else:
-        # fallback
         pygame.draw.circle(surface, (180,180,180), (cx, cy), 6)
-
 
 # ------------------- ОБЛАКА ------------------
 def render_clouds(screen, clouds, width, height):
