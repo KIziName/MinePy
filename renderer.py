@@ -68,7 +68,6 @@ def draw_item_icon(surface, item_type, x, y, size=32):
     else:
         pygame.draw.circle(surface, (180, 180, 180), (cx, cy), 6)
 
-
 # ------------------- ОБЛАКА ------------------
 def render_clouds(screen, clouds, width, height):
     for cloud in clouds:
@@ -80,8 +79,7 @@ def render_clouds(screen, clouds, width, height):
         pygame.draw.ellipse(screen, (255, 255, 255), (x + w*0.2, y - h*0.3, w*0.6, h*0.8))
         pygame.draw.ellipse(screen, (255, 255, 255), (x - w*0.1, y + h*0.1, w*0.3, h*0.6))
 
-
-# ------------------- ПОГОДА (с плавным переходом) -------------------
+# ------------------- ПОГОДА  -------------------
 def render_weather(screen, weather, rain_particles, snow_particles, alpha=1.0, width=None, height=None):
     """Рисует дождь и снег с прозрачностью alpha (0..1)."""
     if weather == WEATHER_RAIN and rain_particles:
