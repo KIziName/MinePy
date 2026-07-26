@@ -27,7 +27,6 @@ class GamePlayer:
         self.max_hp = 100
         self.invulnerable_timer = 0.0
         self.swing_anim = 0.0
-        # бонусы от зелий/украшений
         self.damage_bonus = 0
         self.speed_bonus = 0
         self.jump_bonus = 0
@@ -120,32 +119,6 @@ class GamePlayer:
 
     def take_damage(self, damage, knockback_x=0):
         if self.invulnerable_timer <= 0:
-            # защита от брони (упрощённо)
-            armor_reduction = 0
-            for slot in self.world.game.inventory.slots:  # костыль, но работает
-                if slot['type'] == ITEM_IRON_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.3)
-                elif slot['type'] == ITEM_GOLD_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.2)
-                elif slot['type'] == ITEM_DIAMOND_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.5)
-                elif slot['type'] == ITEM_SILVER_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.35)
-                elif slot['type'] == ITEM_PLATINUM_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.4)
-                elif slot['type'] == ITEM_MITHRIL_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.55)
-                elif slot['type'] == ITEM_ADAMANTITE_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.6)
-                elif slot['type'] == ITEM_TITAN_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.45)
-                elif slot['type'] == ITEM_COBALT_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.5)
-                elif slot['type'] == ITEM_NETHERITE_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.65)
-                elif slot['type'] == ITEM_CRYSTAL_ARMOR:
-                    armor_reduction = max(armor_reduction, 0.7)
-            damage = max(1, damage * (1 - armor_reduction))
             self.hp -= damage
             self.invulnerable_timer = 0.4
             self.vx = knockback_x
