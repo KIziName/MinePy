@@ -98,7 +98,7 @@ class GamePlayer:
             self.hp -= damage
             self.invulnerable_timer = 0.4
             self.vx = knockback_x
-            self.vy = -7 * 60
+            self.vy = -250
             if self.hp <= 0:
                 self.hp = self.max_hp
                 self.spawn()
@@ -980,7 +980,7 @@ class Game:
             for mob in self.mob_manager.mobs[:]:
                 if abs(mob.x - wx) < 30 and abs(mob.y - wy) < 30:
                     mob.hp -= dmg
-                    mob.vy = -4.0 * 60
+                    mob.vy = -220
                     if mob.hp <= 0:
                         drop_type = None
                         if isinstance(mob, Slime):
