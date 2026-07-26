@@ -1,20 +1,20 @@
 import os
 
 # ------------------- КОНСТАНТЫ -------------------
-SCREEN_WIDTH = 1100                     # ширина окна в пикселях
-SCREEN_HEIGHT = 700                     # высота окна в пикселях
+SCREEN_WIDTH = 1280                     # ширина окна в пикселях
+SCREEN_HEIGHT = 720                     # высота окна в пикселях
 BLOCK_SIZE = 32                         # размер одного блока в пикселях
 
 CHUNK_WIDTH = 16                        # ширина чанка в блоках
 WORLD_HEIGHT = 60                       # высота мира в блоках
 
-MAX_STACK = 990                         # макс. предметов в одной ячейке инвентаря
-BUILD_REACH = BLOCK_SIZE * 5.5          # дистанция взаимодействия с блоками
+MAX_STACK = 900                         # макс. предметов в одной ячейке инвентаря
+BUILD_REACH = 128                       # дистанция взаимодействия с блоками
 
-# Физика (все значения умножены на 60 → пиксели в секунду)
-GRAVITY = 0.85 * 60                     # ускорение свободного падения
-PLAYER_SPEED = 5.2 * 60                 # горизонтальная скорость игрока
-JUMP_FORCE = -11.5 * 60                 # начальная скорость прыжка (вверх)
+# Физика 
+GRAVITY = 600.0                         # ускорение свободного падения
+PLAYER_SPEED = 200.0                    # горизонтальная скорость игрока
+JUMP_FORCE = -400.0                     # начальная скорость прыжка (вверх)
 
 # Пути сохранения
 APPDATA_DIR = os.environ.get('APPDATA', os.path.expanduser('~'))
@@ -22,20 +22,20 @@ APPDATA_PATH = os.path.join(APPDATA_DIR, 'MinePy')
 SAVE_FILE_PATH = os.path.join(APPDATA_PATH, 'world_save.json')
 
 # ------------------- НАСТРОЙКИ ПРОИЗВОДИТЕЛЬНОСТИ -------------------
-STARS_COUNT = 70                        # количество звёзд (ночью)
+STARS_COUNT = 90                        # количество звёзд (ночью)
 RAIN_PARTICLES = 80                     # капель дождя
-SNOW_PARTICLES = 40                     # снежинок
-CLOUDS_COUNT = 4                        # облаков
+SNOW_PARTICLES = 80                    # снежинок
+CLOUDS_COUNT = 6                       # облаков
 MAX_MOBS = 7                            # максимум мобов одновременно
 
 # ------------------- НАСТРОЙКИ ИГРОВОЙ МЕХАНИКИ -------------------
 PLAYER_WIDTH = 22                       # ширина игрока в пикселях
 PLAYER_HEIGHT = 44                      # высота игрока в пикселях
-PLAYER_ANIM_SPEED = 0.35 * 60           # скорость анимации шага (кадров в секунду)
+PLAYER_ANIM_SPEED = 21.0                # скорость анимации шага (кадров в секунду)
 DROPPED_ITEM_PULL_RADIUS = 140          # радиус притягивания предметов к игроку
 WEATHER_CHANGE_INTERVAL_MIN = 30        # минимальная длительность погоды (сек)
 WEATHER_CHANGE_INTERVAL_MAX = 120       # максимальная длительность погоды (сек)
-WEATHER_TRANSITION_TIME = 0.5           # время плавного перехода погоды (сек)
+WEATHER_TRANSITION_TIME = 3             # время плавного перехода погоды (сек)
 
 # ------------------- НАСТРОЙКИ МОБОВ -------------------
 # Слайм
@@ -43,12 +43,12 @@ SLIME_WIDTH = 32
 SLIME_HEIGHT = 24
 SLIME_HP_GREEN = 15
 SLIME_HP_BLUE = 25
-SLIME_DAMAGE_GREEN = 7
-SLIME_DAMAGE_BLUE = 12
-SLIME_SPEED_GREEN = 3.2 * 60
-SLIME_SPEED_BLUE = 4.0 * 60
-SLIME_JUMP_FORCE_MIN = -8.5 * 60
-SLIME_JUMP_FORCE_MAX = -11.5 * 60
+SLIME_DAMAGE_GREEN = 8
+SLIME_DAMAGE_BLUE = 10
+SLIME_SPEED_GREEN = 192
+SLIME_SPEED_BLUE = 220
+SLIME_JUMP_FORCE_MIN = -510
+SLIME_JUMP_FORCE_MAX = -690
 SLIME_JUMP_COOLDOWN_MIN = 0.3
 SLIME_JUMP_COOLDOWN_MAX = 0.8
 SLIME_AGGRO_RANGE = 450
@@ -58,43 +58,43 @@ SLIME_JUMP_COOLDOWN_AFTER_MAX = 1.2
 # Зомби
 ZOMBIE_WIDTH = 24
 ZOMBIE_HEIGHT = 44
-ZOMBIE_HP = 45
-ZOMBIE_DAMAGE = 14
-ZOMBIE_SPEED = 2.2 * 60
-ZOMBIE_AGGRO_RANGE = 600
-ZOMBIE_JUMP_FORCE = -9.5 * 60
+ZOMBIE_HP = 50
+ZOMBIE_DAMAGE = 12
+ZOMBIE_SPEED = 130
+ZOMBIE_AGGRO_RANGE = 400
+ZOMBIE_JUMP_FORCE = -350
 
 # Демон-глаз
 DEMON_EYE_WIDTH = 28
 DEMON_EYE_HEIGHT = 28
 DEMON_EYE_HP = 30
-DEMON_EYE_DAMAGE = 12
-DEMON_EYE_DASH_SPEED = 8.0 * 60
+DEMON_EYE_DAMAGE = 15
+DEMON_EYE_DASH_SPEED = 480
 DEMON_EYE_DASH_COOLDOWN_MIN = 1.0
 DEMON_EYE_DASH_COOLDOWN_MAX = 1.7
-DEMON_EYE_ACCEL = 0.2 * 60
+DEMON_EYE_ACCEL = 12
 DEMON_EYE_DASH_TIMER_MIN = 0.6
 DEMON_EYE_DASH_TIMER_MAX = 1.3
 
 # Скелет
 SKELETON_WIDTH = 22
 SKELETON_HEIGHT = 42
-SKELETON_HP = 35
-SKELETON_DAMAGE = 18
-SKELETON_SPEED = 2.8 * 60
-SKELETON_AGGRO_RANGE = 550
-SKELETON_JUMP_FORCE = -10.0 * 60
+SKELETON_HP = 40
+SKELETON_DAMAGE = 12
+SKELETON_SPEED = 160
+SKELETON_AGGRO_RANGE = 400
+SKELETON_JUMP_FORCE = -350
 
 # Овца
 SHEEP_WIDTH = 30
 SHEEP_HEIGHT = 24
-SHEEP_HP = 10
+SHEEP_HP = 15
 SHEEP_DAMAGE = 0
 SHEEP_GRAVITY_MULT = 0.3
 SHEEP_MOVE_TIMER_MIN = 1
 SHEEP_MOVE_TIMER_MAX = 4
-SHEEP_SPEED_MIN = -1.5 * 60
-SHEEP_SPEED_MAX = 1.5 * 60
+SHEEP_SPEED_MIN = -90
+SHEEP_SPEED_MAX = 90
 
 # ------------------- НАСТРОЙКИ ГЕНЕРАЦИИ МИРА -------------------
 LAND_HEIGHT_BASE = 40                   # базовый уровень высоты
@@ -105,9 +105,8 @@ LAND_HEIGHT_AMPLITUDE2 = 3              # амплитуда второй вол
 
 DECORATION_CHANCE = 0.15                # шанс появления декора на поверхности
 GRASS_CHANCE = 0.4                      # среди декора – шанс травы (иначе цветок)
-# FLOWER_TYPES перенесён вниз, после объявления констант BLOCK_FLOWER_*
 
-TREE_CHANCE = 0.12                      # шанс появления дерева
+TREE_CHANCE = 0.08                      # шанс появления дерева
 TREE_MIN_HEIGHT = 4                     # минимальная высота дерева
 TREE_MAX_HEIGHT = 6                     # максимальная высота дерева
 TREE_LEAF_RADIUS = 2                    # радиус кроны
