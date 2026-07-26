@@ -397,7 +397,7 @@ class Game:
             info = pygame.display.Info()
             self.screen_width, self.screen_height = info.current_w, info.current_h
         else:
-            self.screen_width, self.screen_height = 1100, 700
+            self.screen_width, self.screen_height = SCREEN_WIDTH, SCREEN_HEIGHT
             self.screen = pygame.display.set_mode((self.screen_width, self.screen_height))
         self._init_weather_particles()
         self._init_clouds()
