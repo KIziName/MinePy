@@ -394,7 +394,6 @@ BLOCK_COLORS = {
     BLOCK_FLOWER_RED: (255, 80, 80),
     BLOCK_FLOWER_YELLOW: (255, 255, 80),
     BLOCK_FLOWER_BLUE: (80, 150, 255),
-    # новые блоки
     BLOCK_PLANKS: (210, 180, 140),
     BLOCK_BRICK: (178, 34, 34),
     BLOCK_GLASS: (200, 230, 255),
@@ -620,7 +619,6 @@ WEATHER_SNOW = 2
 
 # ------------------- РЕЦЕПТЫ КРАФТА (полный список) -------------------
 CRAFTING_RECIPES = [
-    # Базовые (старые)
     ({'type': ITEM_TORCH, 'count': 4}, [(BLOCK_WOOD, 1), (ITEM_COAL, 1)]),
     ({'type': ITEM_POTION, 'count': 1}, [(ITEM_GEL, 2), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_BIG_POTION, 'count': 1}, [(ITEM_POTION, 2), (ITEM_LENS, 1)]),
@@ -634,15 +632,11 @@ CRAFTING_RECIPES = [
     ({'type': ITEM_SWORD_GOLD, 'count': 1}, [(ITEM_GOLD_INGOT, 8), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_SWORD_DIAMOND, 'count': 1}, [(ITEM_DIAMOND, 5), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_WOOD_SHIELD, 'count': 1}, [(BLOCK_WOOD, 10), (ITEM_BONE, 2)]),
-    ({'type': ITEM_IRON_ARMOR, 'count': 1}, [(ITEM_IRON_INGOT, 12), (ITEM_COIN, 5)]),
-    # Первое расширение
     ({'type': ITEM_STICK, 'count': 4}, [(BLOCK_WOOD, 2)]),
     ({'type': BLOCK_PLANKS, 'count': 4}, [(BLOCK_WOOD, 1)]),
     ({'type': ITEM_SWORD_STONE, 'count': 1}, [(BLOCK_STONE, 2), (ITEM_STICK, 1)]),
     ({'type': ITEM_PICKAXE_STONE, 'count': 1}, [(BLOCK_STONE, 3), (ITEM_STICK, 2)]),
     ({'type': ITEM_PICKAXE_DIAMOND, 'count': 1}, [(ITEM_DIAMOND, 3), (ITEM_STICK, 2)]),
-    ({'type': ITEM_GOLD_ARMOR, 'count': 1}, [(ITEM_GOLD_INGOT, 8)]),
-    ({'type': ITEM_DIAMOND_ARMOR, 'count': 1}, [(ITEM_DIAMOND, 8)]),
     ({'type': BLOCK_GLASS, 'count': 1}, [(BLOCK_SAND, 1)]),
     ({'type': BLOCK_BRICK, 'count': 1}, [(BLOCK_STONE, 4)]),
     ({'type': BLOCK_SANDSTONE, 'count': 1}, [(BLOCK_SAND, 2)]),
@@ -662,10 +656,6 @@ CRAFTING_RECIPES = [
     ({'type': ITEM_PICKAXE_MITHRIL, 'count': 1}, [(ITEM_MITHRIL_INGOT, 6), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_SWORD_ADAMANTITE, 'count': 1}, [(ITEM_ADAMANTITE_INGOT, 12), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_PICKAXE_ADAMANTITE, 'count': 1}, [(ITEM_ADAMANTITE_INGOT, 7), (BLOCK_WOOD, 2)]),
-    ({'type': ITEM_SILVER_ARMOR, 'count': 1}, [(ITEM_SILVER_INGOT, 10)]),
-    ({'type': ITEM_PLATINUM_ARMOR, 'count': 1}, [(ITEM_PLATINUM_INGOT, 12)]),
-    ({'type': ITEM_MITHRIL_ARMOR, 'count': 1}, [(ITEM_MITHRIL_INGOT, 14)]),
-    ({'type': ITEM_ADAMANTITE_ARMOR, 'count': 1}, [(ITEM_ADAMANTITE_INGOT, 16)]),
     ({'type': BLOCK_FENCE, 'count': 8}, [(BLOCK_WOOD, 2), (ITEM_STICK, 4)]),
     ({'type': BLOCK_LADDER, 'count': 6}, [(BLOCK_WOOD, 3)]),
     ({'type': BLOCK_ANVIL, 'count': 1}, [(ITEM_IRON_INGOT, 6)]),
@@ -705,10 +695,6 @@ CRAFTING_RECIPES = [
     ({'type': ITEM_AXE_NETHERITE, 'count': 1}, [(ITEM_NETHERITE_INGOT, 7), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_SWORD_CRYSTAL, 'count': 1}, [(ITEM_CRYSTAL_INGOT, 6), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_PICKAXE_CRYSTAL, 'count': 1}, [(ITEM_CRYSTAL_INGOT, 4), (BLOCK_WOOD, 2)]),
-    ({'type': ITEM_TITAN_ARMOR, 'count': 1}, [(ITEM_TITAN_INGOT, 14)]),
-    ({'type': ITEM_COBALT_ARMOR, 'count': 1}, [(ITEM_COBALT_INGOT, 14)]),
-    ({'type': ITEM_NETHERITE_ARMOR, 'count': 1}, [(ITEM_NETHERITE_INGOT, 16)]),
-    ({'type': ITEM_CRYSTAL_ARMOR, 'count': 1}, [(ITEM_CRYSTAL_INGOT, 12)]),
     ({'type': ITEM_HAMMER, 'count': 1}, [(ITEM_IRON_INGOT, 10), (BLOCK_WOOD, 2)]),
     ({'type': ITEM_SPEAR, 'count': 1}, [(ITEM_IRON_INGOT, 6), (ITEM_STICK, 3)]),
     ({'type': ITEM_CROSSBOW, 'count': 1}, [(ITEM_IRON_INGOT, 4), (ITEM_STICK, 2), (ITEM_STRING, 2)]),
