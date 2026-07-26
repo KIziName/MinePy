@@ -226,18 +226,18 @@ class DroppedItem:
         self.x, self.y = x, y
         self.item_type = item_type
         self.count = count
-        self.vy = random.uniform(-2, -4) * 60
-        self.vx = random.uniform(-1.5, 1.5) * 60
+        self.vy = random.uniform(-120, -240) 
+        self.vx = random.uniform(-90, 90) 
         self.bob_angle = random.uniform(0, 360)
 
     def update(self, player_x, player_y, get_block_func, dt):
-        self.bob_angle += 0.1 * 60 * dt
+        self.bob_angle += 0.1 * dt
 
         dx, dy = player_x - self.x, player_y - self.y
         dist = math.hypot(dx, dy)
 
         if dist < DROPPED_ITEM_PULL_RADIUS and dist > 0:
-            speed = (2.0 if dist > 30 else 4.0) * 60
+            speed = (120.0 if dist > 30 else 240.0) 
             self.vx += (dx / dist) * speed * dt
             self.vy += (dy / dist) * speed * dt
 
