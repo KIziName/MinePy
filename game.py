@@ -440,6 +440,10 @@ class Game:
         self._init_stars()
         self._build_background_surfaces()
 
+        self.renderer.screen = self.screen
+        self.renderer.screen_width = self.screen_width
+        self.renderer.screen_height = self.screen_height
+
     def toggle_inventory(self):
         if self.pause_menu_open:
             return
