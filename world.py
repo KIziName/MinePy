@@ -15,24 +15,42 @@ class GameWorld:
         self.lock = threading.Lock()
         self.task_queue = queue.Queue()
         self.requested = set()
-        self.active = True
-        self.worker = threading.Thread(target=self._worker_loop, daemon=True)
+        
+        # Флаг для управления потоком
+        self.running = True
+        self.worker = threading.Thread(target=self._worker_loop, daemon=False)  # не демон
         self.worker.start()
 
     def _worker_loop(self):
-        while True:
-            chunk_x = self.task_queue.get()
-            if not self.active:
-                self.task_queue.task_done()
+        while self.running:
+            try:
+                # Ждём задачу с таймаутом, чтобы проверять флаг
+                chunk_x = self.task_queue.get(timeout=0.5)
+            except queue.Empty:
                 continue
+
+            if not self.running:
+                self.task_queue.task_done()
+                break
+
             data = self._generate_chunk_data(chunk_x)
             with self.lock:
-                if self.active:
+                if self.running:
                     self.chunk_data[chunk_x] = data
                     self.dirty_chunks.add(chunk_x)
             self.task_queue.task_done()
 
+    def stop(self):
+        """Останавливает рабочий поток и очищает очередь."""
+        with self.lock:
+            self.running = False
+        # Отправляем сигнал для пробуждения, если поток ждёт
+        self.task_queue.put(None)
+        if self.worker.is_alive():
+            self.worker.join(timeout=1.0)
+
     def _generate_chunk_data(self, chunk_x):
+        # (без изменений)
         chunk = [[BLOCK_AIR for _ in range(CHUNK_WIDTH)] for _ in range(WORLD_HEIGHT)]
         for local_x in range(CHUNK_WIDTH):
             global_gx = chunk_x * CHUNK_WIDTH + local_x
@@ -87,6 +105,8 @@ class GameWorld:
 
     def request_chunk(self, chunk_x):
         with self.lock:
+            if not self.running:
+                return
             if chunk_x in self.chunk_data or chunk_x in self.requested:
                 return
             self.requested.add(chunk_x)
@@ -98,8 +118,9 @@ class GameWorld:
                 return
         data = self._generate_chunk_data(chunk_x)
         with self.lock:
-            self.chunk_data[chunk_x] = data
-            self.dirty_chunks.add(chunk_x)
+            if self.running:
+                self.chunk_data[chunk_x] = data
+                self.dirty_chunks.add(chunk_x)
 
     def get_block(self, global_gx, gy):
         if gy < 0 or gy >= WORLD_HEIGHT:
@@ -107,7 +128,9 @@ class GameWorld:
         chunk_x = global_gx // CHUNK_WIDTH
         self.ensure_chunk(chunk_x)
         with self.lock:
-            data = self.chunk_data[chunk_x]
+            data = self.chunk_data.get(chunk_x)
+            if data is None:
+                return BLOCK_AIR
         return data[gy][global_gx % CHUNK_WIDTH]
 
     def set_block(self, global_gx, gy, block_type):
@@ -115,12 +138,15 @@ class GameWorld:
             chunk_x = global_gx // CHUNK_WIDTH
             self.ensure_chunk(chunk_x)
             with self.lock:
-                data = self.chunk_data[chunk_x]
-                data[gy][global_gx % CHUNK_WIDTH] = block_type
-                self.dirty_chunks.add(chunk_x)
+                data = self.chunk_data.get(chunk_x)
+                if data is not None:
+                    data[gy][global_gx % CHUNK_WIDTH] = block_type
+                    self.dirty_chunks.add(chunk_x)
 
     def get_chunk_surface(self, chunk_x):
         with self.lock:
+            if not self.running:
+                return None
             if chunk_x in self.chunk_surfaces and chunk_x not in self.dirty_chunks:
                 return self.chunk_surfaces[chunk_x]
 
@@ -131,8 +157,9 @@ class GameWorld:
 
         surf = self._render_chunk_data(chunk_x, data)
         with self.lock:
-            self.chunk_surfaces[chunk_x] = surf
-            self.dirty_chunks.discard(chunk_x)
+            if self.running:
+                self.chunk_surfaces[chunk_x] = surf
+                self.dirty_chunks.discard(chunk_x)
         return surf
 
     def _render_chunk_data(self, chunk_x, data):
@@ -150,36 +177,42 @@ class GameWorld:
         return surf
 
     def clear(self):
+        # Останавливаем старый поток
+        self.stop()
+
+        # Сбрасываем данные
         with self.lock:
-            self.active = False
             self.chunk_data.clear()
             self.chunk_surfaces.clear()
             self.dirty_chunks.clear()
             self.land_height_cache.clear()
             self.requested.clear()
-        while not self.task_queue.empty():
-            try:
-                self.task_queue.get_nowait()
-                self.task_queue.task_done()
-            except queue.Empty:
-                break
-        with self.lock:
-            self.active = True
+
+        # Пересоздаём очередь и поток
+        self.task_queue = queue.Queue()
+        self.running = True
+        self.worker = threading.Thread(target=self._worker_loop, daemon=False)
+        self.worker.start()
 
     def load_data(self, chunks_data):
+        # Останавливаем старый поток
+        self.stop()
+
+        # Очищаем данные
         with self.lock:
-            self.active = False
             self.chunk_data.clear()
             self.chunk_surfaces.clear()
             self.dirty_chunks.clear()
+            self.land_height_cache.clear()
             self.requested.clear()
-        while not self.task_queue.empty():
-            try:
-                self.task_queue.get_nowait()
-                self.task_queue.task_done()
-            except queue.Empty:
-                break
+
+        # Загружаем новые данные
         with self.lock:
             self.chunk_data = {int(k): v for k, v in chunks_data.items()}
             self.dirty_chunks = set(self.chunk_data.keys())
-            self.active = True
+
+        # Пересоздаём очередь и поток
+        self.task_queue = queue.Queue()
+        self.running = True
+        self.worker = threading.Thread(target=self._worker_loop, daemon=False)
+        self.worker.start()
