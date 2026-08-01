@@ -1,0 +1,714 @@
+import os
+
+# 1. БАЗОВЫЕ НАСТРОЙКИ
+
+SCREEN_WIDTH = 1280          # ширина окна 
+SCREEN_HEIGHT = 720          # высота окна
+BLOCK_SIZE = 32              # размер блока
+
+CHUNK_WIDTH = 16             # ширина чанка в блоках
+WORLD_HEIGHT = 100            # высота мира в блоках
+
+MAX_STACK = 900              # максимальный размер стопки предметов
+BUILD_REACH = 128            # радиус взаимодействия с миром 
+
+GRAVITY = 600.0              # ускорение свободного падения 
+PLAYER_SPEED = 200.0         # горизонтальная скорость игрока
+JUMP_FORCE = -400.0          # начальная скорость прыжка 
+
+# Путь к папке сохранений (AppData/пользовательская)
+APPDATA_DIR = os.environ.get('APPDATA', os.path.expanduser('~'))
+APPDATA_PATH = os.path.join(APPDATA_DIR, 'MinePy')
+SAVE_FILE_PATH = os.path.join(APPDATA_PATH, 'world_save.json')
+
+# ============================================================
+# 2. АТМОСФЕРА И ПОГОДА
+# ============================================================
+
+STARS_COUNT = 90             # количество звёзд на небе
+RAIN_PARTICLES = 80          # число капель дождя
+SNOW_PARTICLES = 80          # число снежинок
+CLOUDS_COUNT = 6             # количество облаков
+MAX_MOBS = 7                 # лимит мобов на карте
+
+PLAYER_WIDTH = 22            # ширина хитбокса игрока
+PLAYER_HEIGHT = 44           # высота хитбокса игрока
+PLAYER_ANIM_SPEED = 21.0     # скорость смены кадров анимации ходьбы
+DROPPED_ITEM_PULL_RADIUS = 140  # радиус притяжения выпавших предметов к игроку
+
+WEATHER_CHANGE_INTERVAL_MIN = 30   # мин. интервал смены погоды (сек)
+WEATHER_CHANGE_INTERVAL_MAX = 120  # макс. интервал смены погоды (сек)
+WEATHER_TRANSITION_TIME = 3        # длительность плавного перехода (сек)
+
+# ============================================================
+# 3. ПАРАМЕТРЫ МОБОВ
+# ============================================================
+
+# Слайм
+SLIME_WIDTH = 32
+SLIME_HEIGHT = 24
+SLIME_HP_GREEN = 15
+SLIME_HP_BLUE = 25
+SLIME_DAMAGE_GREEN = 8
+SLIME_DAMAGE_BLUE = 10
+SLIME_SPEED_GREEN = 192
+SLIME_SPEED_BLUE = 220
+SLIME_JUMP_FORCE_MIN = -510      # диапазон силы прыжка
+SLIME_JUMP_FORCE_MAX = -690
+SLIME_JUMP_COOLDOWN_MIN = 0.3    # задержка между прыжками
+SLIME_JUMP_COOLDOWN_MAX = 0.8
+SLIME_AGGRO_RANGE = 450          # дистанция агрессии к игроку
+SLIME_JUMP_COOLDOWN_AFTER = 0.6
+SLIME_JUMP_COOLDOWN_AFTER_MAX = 1.2
+
+# Зомби
+ZOMBIE_WIDTH = 24
+ZOMBIE_HEIGHT = 44
+ZOMBIE_HP = 50
+ZOMBIE_DAMAGE = 12
+ZOMBIE_SPEED = 130
+ZOMBIE_AGGRO_RANGE = 400
+ZOMBIE_JUMP_FORCE = -350
+
+# Глаз демона
+DEMON_EYE_WIDTH = 28
+DEMON_EYE_HEIGHT = 28
+DEMON_EYE_HP = 30
+DEMON_EYE_DAMAGE = 15
+DEMON_EYE_DASH_SPEED = 480      # скорость рывка
+DEMON_EYE_DASH_COOLDOWN_MIN = 1.0
+DEMON_EYE_DASH_COOLDOWN_MAX = 1.7
+DEMON_EYE_ACCEL = 12            # ускорение при движении к цели
+DEMON_EYE_DASH_TIMER_MIN = 0.6
+DEMON_EYE_DASH_TIMER_MAX = 1.3
+
+# Скелет
+SKELETON_WIDTH = 22
+SKELETON_HEIGHT = 42
+SKELETON_HP = 40
+SKELETON_DAMAGE = 12
+SKELETON_SPEED = 160
+SKELETON_AGGRO_RANGE = 400
+SKELETON_JUMP_FORCE = -350
+
+# Овца
+SHEEP_WIDTH = 30
+SHEEP_HEIGHT = 24
+SHEEP_HP = 15
+SHEEP_DAMAGE = 0                
+SHEEP_GRAVITY_MULT = 0.3        # пониженная гравитация
+SHEEP_MOVE_TIMER_MIN = 1        # интервал смены направления
+SHEEP_MOVE_TIMER_MAX = 4
+SHEEP_SPEED_MIN = -90
+SHEEP_SPEED_MAX = 90
+
+# ============================================================
+# 4. ГЕНЕРАЦИЯ ЛАНДШАФТА И РУД
+# ============================================================
+
+LAND_HEIGHT_BASE = 40           # базовая высота поверхности
+LAND_HEIGHT_AMPLITUDE = 6       # амплитуда первой гармоники
+LAND_HEIGHT_FREQ = 0.04         # частота первой гармоники
+LAND_HEIGHT_FREQ2 = 0.1         # частота второй гармоники
+LAND_HEIGHT_AMPLITUDE2 = 3      # амплитуда второй гармоники
+
+DECORATION_CHANCE = 0.15        # шанс появления травы/цветов на поверхности
+GRASS_CHANCE = 0.4              # доля высокой травы среди декораций
+
+TREE_CHANCE = 0.08              # шанс появления дерева на чанк
+TREE_MIN_HEIGHT = 4
+TREE_MAX_HEIGHT = 6
+TREE_LEAF_RADIUS = 2            # радиус кроны
+
+# Руды – шанс и минимальная глубина (блоков ниже уровня земли)
+ORE_GOLD_CHANCE = 0.03
+ORE_GOLD_MIN_DEPTH = 12
+ORE_IRON_CHANCE = 0.06
+ORE_IRON_MIN_DEPTH = 10
+ORE_COPPER_CHANCE = 0.10
+ORE_COPPER_MIN_DEPTH = 7
+ORE_COAL_CHANCE = 0.16
+ORE_COAL_MIN_DEPTH = 5
+
+DIRT_LAYER_THICKNESS = 5        # толщина слоя земли под травой
+
+# Дополнительные руды (глубже)
+ORE_SILVER_CHANCE = 0.02
+ORE_SILVER_MIN_DEPTH = 15
+ORE_PLATINUM_CHANCE = 0.015
+ORE_PLATINUM_MIN_DEPTH = 20
+ORE_MITHRIL_CHANCE = 0.01
+ORE_MITHRIL_MIN_DEPTH = 25
+ORE_ADAMANTITE_CHANCE = 0.008
+ORE_ADAMANTITE_MIN_DEPTH = 30
+
+# Самые редкие и глубокие руды
+ORE_TITAN_CHANCE = 0.006
+ORE_TITAN_MIN_DEPTH = 35
+ORE_COBALT_CHANCE = 0.005
+ORE_COBALT_MIN_DEPTH = 40
+ORE_NETHERITE_CHANCE = 0.004
+ORE_NETHERITE_MIN_DEPTH = 45
+ORE_CRYSTAL_CHANCE = 0.003
+ORE_CRYSTAL_MIN_DEPTH = 50
+
+# ============================================================
+# 5. ИДЕНТИФИКАТОРЫ БЛОКОВ И ПРЕДМЕТОВ
+
+BLOCK_AIR = 0
+BLOCK_DIRT = 1
+BLOCK_GRASS = 2
+BLOCK_STONE = 3
+BLOCK_WOOD = 4
+BLOCK_LEAVES = 11
+BLOCK_COPPER_ORE = 14
+BLOCK_IRON_ORE = 15
+BLOCK_GOLD_ORE = 26
+BLOCK_COAL_ORE = 27
+
+# Оружие и инструменты 
+ITEM_SWORD_WOOD = 5
+ITEM_SWORD_COPPER = 16
+ITEM_SWORD_IRON = 17
+ITEM_SWORD_GOLD = 28
+ITEM_SWORD_DIAMOND = 29
+
+ITEM_PICKAXE_WOOD = 6
+ITEM_PICKAXE_COPPER = 18
+ITEM_PICKAXE_IRON = 19
+ITEM_PICKAXE_GOLD = 30
+
+# Ресурсы
+ITEM_GEL = 8
+ITEM_COIN = 10
+ITEM_TORCH = 13
+ITEM_BONE = 21
+
+# Слитки и материалы
+ITEM_COPPER_INGOT = 22
+ITEM_IRON_INGOT = 23
+ITEM_GOLD_INGOT = 31
+ITEM_COAL = 32
+ITEM_DIAMOND = 33
+
+ITEM_WOOD_SHIELD = 24
+
+# Декорации
+BLOCK_TALL_GRASS = 34
+BLOCK_FLOWER_RED = 35
+BLOCK_FLOWER_YELLOW = 36
+BLOCK_FLOWER_BLUE = 37
+
+# Строительные блоки
+BLOCK_PLANKS = 38
+BLOCK_BRICK = 39
+BLOCK_GLASS = 40
+BLOCK_SAND = 41
+BLOCK_SANDSTONE = 42
+
+# Материалы для крафта
+ITEM_STICK = 43
+ITEM_LEATHER = 44
+ITEM_STRING = 45
+ITEM_FEATHER = 46
+ITEM_FLINT = 47
+ITEM_APPLE = 48
+ITEM_BREAD = 49
+ITEM_COOKED_MEAT = 50
+
+# Каменные инструменты
+ITEM_SWORD_STONE = 51
+ITEM_PICKAXE_STONE = 52
+ITEM_PICKAXE_DIAMOND = 53
+
+# ---------- Второе расширение (серебро и т.д.) ----------
+BLOCK_SILVER_ORE = 100
+BLOCK_PLATINUM_ORE = 101
+BLOCK_MITHRIL_ORE = 102
+BLOCK_ADAMANTITE_ORE = 103
+BLOCK_OBSIDIAN = 104
+BLOCK_MARBLE = 105
+BLOCK_GLOWSTONE = 106
+
+ITEM_SILVER_INGOT = 107
+ITEM_PLATINUM_INGOT = 108
+ITEM_MITHRIL_INGOT = 109
+ITEM_ADAMANTITE_INGOT = 110
+
+ITEM_SWORD_SILVER = 111
+ITEM_PICKAXE_SILVER = 112
+ITEM_SWORD_PLATINUM = 113
+ITEM_PICKAXE_PLATINUM = 114
+ITEM_SWORD_MITHRIL = 115
+ITEM_PICKAXE_MITHRIL = 116
+ITEM_SWORD_ADAMANTITE = 117
+ITEM_PICKAXE_ADAMANTITE = 118
+
+# Мебель и декорации
+BLOCK_FENCE = 123
+BLOCK_LADDER = 124
+BLOCK_ANVIL = 125
+BLOCK_FURNACE = 126
+BLOCK_CHEST = 127
+BLOCK_BOOKSHELF = 128
+BLOCK_SNOW = 129
+BLOCK_CACTUS = 130
+BLOCK_SANDSTONE_SMOOTH = 131
+
+# Еда
+ITEM_PIE = 136
+ITEM_SOUP = 137
+ITEM_MUSHROOM_SOUP = 138
+ITEM_COOKED_MUSHROOM = 139
+
+# Лук и стрелы
+ITEM_BOW = 140
+ITEM_ARROW = 141
+
+# Книги, посуда
+ITEM_BOOK = 145
+ITEM_PAPER = 146
+ITEM_BOWL = 147
+ITEM_MUSHROOM = 148
+ITEM_WHEAT = 149
+
+# ---------- Третье расширение ----------
+BLOCK_TITAN_ORE = 200
+BLOCK_COBALT_ORE = 201
+BLOCK_NETHERITE_ORE = 202
+BLOCK_CRYSTAL_ORE = 203
+
+ITEM_TITAN_INGOT = 204
+ITEM_COBALT_INGOT = 205
+ITEM_NETHERITE_INGOT = 206
+ITEM_CRYSTAL_INGOT = 207
+
+ITEM_SWORD_TITAN = 208
+ITEM_PICKAXE_TITAN = 209
+ITEM_AXE_TITAN = 210
+ITEM_SWORD_COBALT = 211
+ITEM_PICKAXE_COBALT = 212
+ITEM_AXE_COBALT = 213
+ITEM_SWORD_NETHERITE = 214
+ITEM_PICKAXE_NETHERITE = 215
+ITEM_AXE_NETHERITE = 216
+ITEM_SWORD_CRYSTAL = 217
+ITEM_PICKAXE_CRYSTAL = 218
+
+# Новые виды оружия
+ITEM_HAMMER = 223
+ITEM_SPEAR = 224
+ITEM_CROSSBOW = 225
+
+# Самоцветы
+ITEM_RUBY = 226
+ITEM_SAPPHIRE = 227
+ITEM_EMERALD = 228
+ITEM_AMETHYST = 229
+ITEM_OPAL = 230
+ITEM_AMBER = 231
+
+# Продвинутая еда
+ITEM_PIZZA = 241
+ITEM_BURGER = 242
+ITEM_SUSHI = 243
+ITEM_CAKE = 244
+ITEM_SALAD = 245
+ITEM_FRIED_POTATOES = 246
+ITEM_CARROT_JUICE = 247
+
+# Фрукты/овощи
+ITEM_BANANA = 248
+ITEM_ORANGE = 249
+ITEM_CARROT = 250
+ITEM_POTATO = 251
+ITEM_TOMATO = 252
+ITEM_CUCUMBER = 253
+
+# Рыба и снасти
+ITEM_FISH_PERCH = 258
+ITEM_FISH_SALMON = 259
+ITEM_FISH_GOLDFISH = 260
+ITEM_FISH_PUFFER = 261
+ITEM_FISHING_ROD = 262
+ITEM_BAIT = 263
+
+# Архитектурные блоки
+BLOCK_DOOR = 264
+BLOCK_WINDOW = 265
+BLOCK_SHUTTER = 266
+BLOCK_PILLAR = 267
+BLOCK_STATUE = 268
+BLOCK_CARPET = 269
+BLOCK_PAINTING = 270
+BLOCK_FRAME = 271
+BLOCK_SHELF = 272
+
+# Растения
+BLOCK_BUSH = 273
+BLOCK_FERN = 274
+BLOCK_VINE = 275
+BLOCK_TULIP_RED = 276
+BLOCK_TULIP_YELLOW = 277
+BLOCK_DAISY = 278
+
+# Музыкальные инструменты
+ITEM_GUITAR = 279
+ITEM_FLUTE = 280
+ITEM_DRUM = 281
+ITEM_HARP = 282
+
+# Фермерство
+ITEM_HOE = 283
+ITEM_WATERING_CAN = 284
+ITEM_FERTILIZER = 285
+
+# Разные материалы
+ITEM_LEATHER_STRIP = 286
+ITEM_SCALE = 287
+ITEM_SHELL = 288
+ITEM_FEATHER_BLUE = 289
+ITEM_FEATHER_RED = 290
+ITEM_FEATHER_GREEN = 291
+ITEM_BONE_MEAL = 292
+ITEM_WOOL = 293
+
+# Магические книги
+ITEM_SPELLBOOK_FIRE = 294
+ITEM_SPELLBOOK_ICE = 295
+ITEM_SPELLBOOK_HEAL = 296
+ITEM_SPELLBOOK_TELEPORT = 297
+
+# Свиток телепортации
+ITEM_SCROLL_TELEPORT = 298
+
+# ============================================================
+# 6. ЦВЕТА БЛОКОВ (RGB)
+
+BLOCK_COLORS = {
+    BLOCK_GRASS: (76, 175, 80),
+    BLOCK_DIRT: (121, 85, 72),
+    BLOCK_STONE: (96, 125, 139),
+    BLOCK_WOOD: (93, 64, 55),
+    BLOCK_LEAVES: (46, 125, 50),
+    BLOCK_COPPER_ORE: (216, 112, 64),
+    BLOCK_IRON_ORE: (176, 190, 197),
+    BLOCK_GOLD_ORE: (255, 215, 0),
+    BLOCK_COAL_ORE: (33, 33, 33),
+    BLOCK_TALL_GRASS: (76, 175, 80),
+    BLOCK_FLOWER_RED: (255, 80, 80),
+    BLOCK_FLOWER_YELLOW: (255, 255, 80),
+    BLOCK_FLOWER_BLUE: (80, 150, 255),
+    BLOCK_PLANKS: (210, 180, 140),
+    BLOCK_BRICK: (178, 34, 34),
+    BLOCK_GLASS: (200, 230, 255),
+    BLOCK_SAND: (238, 214, 175),
+    BLOCK_SANDSTONE: (193, 182, 155),
+    BLOCK_SILVER_ORE: (180, 200, 210),
+    BLOCK_PLATINUM_ORE: (220, 235, 245),
+    BLOCK_MITHRIL_ORE: (120, 200, 220),
+    BLOCK_ADAMANTITE_ORE: (80, 50, 120),
+    BLOCK_OBSIDIAN: (20, 10, 30),
+    BLOCK_MARBLE: (220, 220, 230),
+    BLOCK_GLOWSTONE: (255, 240, 100),
+    BLOCK_FENCE: (160, 120, 80),
+    BLOCK_LADDER: (180, 140, 90),
+    BLOCK_ANVIL: (80, 80, 80),
+    BLOCK_FURNACE: (120, 80, 60),
+    BLOCK_CHEST: (180, 140, 70),
+    BLOCK_BOOKSHELF: (150, 100, 60),
+    BLOCK_SNOW: (240, 250, 255),
+    BLOCK_CACTUS: (60, 120, 40),
+    BLOCK_SANDSTONE_SMOOTH: (210, 200, 170),
+    BLOCK_TITAN_ORE: (100, 150, 200),
+    BLOCK_COBALT_ORE: (50, 150, 200),
+    BLOCK_NETHERITE_ORE: (80, 40, 100),
+    BLOCK_CRYSTAL_ORE: (200, 240, 255),
+    BLOCK_DOOR: (160, 120, 80),
+    BLOCK_WINDOW: (150, 200, 230),
+    BLOCK_SHUTTER: (100, 80, 60),
+    BLOCK_PILLAR: (180, 170, 150),
+    BLOCK_STATUE: (200, 200, 200),
+    BLOCK_CARPET: (200, 80, 80),
+    BLOCK_PAINTING: (150, 100, 80),
+    BLOCK_FRAME: (120, 80, 50),
+    BLOCK_SHELF: (180, 140, 100),
+    BLOCK_BUSH: (40, 120, 40),
+    BLOCK_FERN: (50, 140, 50),
+    BLOCK_VINE: (60, 150, 60),
+    BLOCK_TULIP_RED: (255, 50, 50),
+    BLOCK_TULIP_YELLOW: (255, 255, 50),
+    BLOCK_DAISY: (255, 255, 200),
+}
+
+# ============================================================
+# 7. НАЗВАНИЯ ДЛЯ UI
+
+ITEM_NAMES = {
+    BLOCK_DIRT: "Земля", BLOCK_GRASS: "Трава", BLOCK_STONE: "Камень", BLOCK_WOOD: "Дерево",
+    BLOCK_LEAVES: "Листва", BLOCK_COPPER_ORE: "Медн. руда", BLOCK_IRON_ORE: "Жел. руда",
+    BLOCK_GOLD_ORE: "Зол. руда", BLOCK_COAL_ORE: "Угл. руда",
+    ITEM_SWORD_WOOD: "Дер. меч", ITEM_SWORD_COPPER: "Медн. меч", ITEM_SWORD_IRON: "Жел. меч",
+    ITEM_SWORD_GOLD: "Зол. меч", ITEM_SWORD_DIAMOND: "Алм. меч",
+    ITEM_PICKAXE_WOOD: "Дер. кирка", ITEM_PICKAXE_COPPER: "Медн. кирка", ITEM_PICKAXE_IRON: "Жел. кирка",
+    ITEM_PICKAXE_GOLD: "Зол. кирка", ITEM_GEL: "Гель", ITEM_COIN: "Монета", ITEM_TORCH: "Факел", ITEM_BONE: "Кость",
+    ITEM_COPPER_INGOT: "Медн. слиток", ITEM_IRON_INGOT: "Жел. слиток", ITEM_GOLD_INGOT: "Зол. слиток",
+    ITEM_COAL: "Уголь", ITEM_DIAMOND: "Алмаз", ITEM_WOOD_SHIELD: "Дер. щит", BLOCK_TALL_GRASS: "Высокая трава",
+    BLOCK_FLOWER_RED: "Красный цветок", BLOCK_FLOWER_YELLOW: "Жёлтый цветок", BLOCK_FLOWER_BLUE: "Синий цветок",
+    BLOCK_PLANKS: "Доски", BLOCK_BRICK: "Кирпич", BLOCK_GLASS: "Стекло", BLOCK_SAND: "Песок", BLOCK_SANDSTONE: "Песчаник",
+    ITEM_STICK: "Палка", ITEM_LEATHER: "Кожа", ITEM_STRING: "Нить", ITEM_FEATHER: "Перо", ITEM_FLINT: "Кремень",
+    ITEM_APPLE: "Яблоко", ITEM_BREAD: "Хлеб", ITEM_COOKED_MEAT: "Жареное мясо",
+    ITEM_SWORD_STONE: "Каменный меч", ITEM_PICKAXE_STONE: "Каменная кирка", ITEM_PICKAXE_DIAMOND: "Алмазная кирка",
+    BLOCK_SILVER_ORE: "Серебр. руда", BLOCK_PLATINUM_ORE: "Платин. руда",
+    BLOCK_MITHRIL_ORE: "Мифр. руда", BLOCK_ADAMANTITE_ORE: "Адамант. руда",
+    BLOCK_OBSIDIAN: "Обсидиан", BLOCK_MARBLE: "Мрамор", BLOCK_GLOWSTONE: "Светокамень",
+    ITEM_SILVER_INGOT: "Серебр. слиток", ITEM_PLATINUM_INGOT: "Платин. слиток",
+    ITEM_MITHRIL_INGOT: "Мифр. слиток", ITEM_ADAMANTITE_INGOT: "Адамант. слиток",
+    ITEM_SWORD_SILVER: "Серебр. меч", ITEM_PICKAXE_SILVER: "Серебр. кирка",
+    ITEM_SWORD_PLATINUM: "Платин. меч", ITEM_PICKAXE_PLATINUM: "Платин. кирка",
+    ITEM_SWORD_MITHRIL: "Мифр. меч", ITEM_PICKAXE_MITHRIL: "Мифр. кирка",
+    ITEM_SWORD_ADAMANTITE: "Адамант. меч", ITEM_PICKAXE_ADAMANTITE: "Адамант. кирка",
+    BLOCK_FENCE: "Забор", BLOCK_LADDER: "Лестница", BLOCK_ANVIL: "Наковальня",
+    BLOCK_FURNACE: "Печь", BLOCK_CHEST: "Сундук", BLOCK_BOOKSHELF: "Книжн. полка",
+    BLOCK_SNOW: "Снег", BLOCK_CACTUS: "Кактус", BLOCK_SANDSTONE_SMOOTH: "Глад. песчаник",
+    ITEM_PIE: "Пирог", ITEM_SOUP: "Суп", ITEM_MUSHROOM_SOUP: "Гриб. суп", ITEM_COOKED_MUSHROOM: "Жар. гриб",
+    ITEM_BOW: "Лук", ITEM_ARROW: "Стрела",
+    ITEM_BOOK: "Книга", ITEM_PAPER: "Бумага", ITEM_BOWL: "Миска", ITEM_MUSHROOM: "Гриб", ITEM_WHEAT: "Пшеница",
+    BLOCK_TITAN_ORE: "Титановая руда", BLOCK_COBALT_ORE: "Кобальтовая руда",
+    BLOCK_NETHERITE_ORE: "Незеритовая руда", BLOCK_CRYSTAL_ORE: "Хрустальная руда",
+    ITEM_TITAN_INGOT: "Титановый слиток", ITEM_COBALT_INGOT: "Кобальтовый слиток",
+    ITEM_NETHERITE_INGOT: "Незеритовый слиток", ITEM_CRYSTAL_INGOT: "Хрустальный слиток",
+    ITEM_SWORD_TITAN: "Титановый меч", ITEM_PICKAXE_TITAN: "Титановая кирка", ITEM_AXE_TITAN: "Титановый топор",
+    ITEM_SWORD_COBALT: "Кобальтовый меч", ITEM_PICKAXE_COBALT: "Кобальтовая кирка", ITEM_AXE_COBALT: "Кобальтовый топор",
+    ITEM_SWORD_NETHERITE: "Незеритовый меч", ITEM_PICKAXE_NETHERITE: "Незеритовая кирка", ITEM_AXE_NETHERITE: "Незеритовый топор",
+    ITEM_SWORD_CRYSTAL: "Хрустальный меч", ITEM_PICKAXE_CRYSTAL: "Хрустальная кирка",
+    ITEM_HAMMER: "Молот", ITEM_SPEAR: "Копьё", ITEM_CROSSBOW: "Арбалет",
+    ITEM_RUBY: "Рубин", ITEM_SAPPHIRE: "Сапфир", ITEM_EMERALD: "Изумруд",
+    ITEM_AMETHYST: "Аметист", ITEM_OPAL: "Опал", ITEM_AMBER: "Янтарь",
+    ITEM_PIZZA: "Пицца", ITEM_BURGER: "Бургер", ITEM_SUSHI: "Суши", ITEM_CAKE: "Торт",
+    ITEM_SALAD: "Салат", ITEM_FRIED_POTATOES: "Жареная картошка", ITEM_CARROT_JUICE: "Морковный сок",
+    ITEM_BANANA: "Банан", ITEM_ORANGE: "Апельсин", ITEM_CARROT: "Морковь",
+    ITEM_POTATO: "Картофель", ITEM_TOMATO: "Помидор", ITEM_CUCUMBER: "Огурец",
+    ITEM_FISH_PERCH: "Окунь", ITEM_FISH_SALMON: "Лосось", ITEM_FISH_GOLDFISH: "Золотая рыбка",
+    ITEM_FISH_PUFFER: "Фугу", ITEM_FISHING_ROD: "Удочка", ITEM_BAIT: "Наживка",
+    BLOCK_DOOR: "Дверь", BLOCK_WINDOW: "Окно", BLOCK_SHUTTER: "Ставни",
+    BLOCK_PILLAR: "Колонна", BLOCK_STATUE: "Статуя", BLOCK_CARPET: "Ковёр",
+    BLOCK_PAINTING: "Картина", BLOCK_FRAME: "Рамка", BLOCK_SHELF: "Полка",
+    BLOCK_BUSH: "Куст", BLOCK_FERN: "Папоротник", BLOCK_VINE: "Лиана",
+    BLOCK_TULIP_RED: "Красный тюльпан", BLOCK_TULIP_YELLOW: "Жёлтый тюльпан", BLOCK_DAISY: "Ромашка",
+    ITEM_GUITAR: "Гитара", ITEM_FLUTE: "Флейта", ITEM_DRUM: "Барабан", ITEM_HARP: "Арфа",
+    ITEM_HOE: "Мотыга", ITEM_WATERING_CAN: "Лейка", ITEM_FERTILIZER: "Удобрение",
+    ITEM_LEATHER_STRIP: "Кожаная полоса", ITEM_SCALE: "Чешуя", ITEM_SHELL: "Панцирь",
+    ITEM_FEATHER_BLUE: "Синее перо", ITEM_FEATHER_RED: "Красное перо", ITEM_FEATHER_GREEN: "Зелёное перо",
+    ITEM_BONE_MEAL: "Костная мука", ITEM_WOOL: "Шерсть",
+    ITEM_SPELLBOOK_FIRE: "Книга огня", ITEM_SPELLBOOK_ICE: "Книга льда",
+    ITEM_SPELLBOOK_HEAL: "Книга лечения", ITEM_SPELLBOOK_TELEPORT: "Книга телепортации",
+    ITEM_SCROLL_TELEPORT: "Свиток телепортации",
+}
+
+# Список цветов для генерации на поверхности
+FLOWER_TYPES = [BLOCK_FLOWER_RED, BLOCK_FLOWER_YELLOW, BLOCK_FLOWER_BLUE]
+
+# Коды погоды
+WEATHER_CLEAR = 0
+WEATHER_RAIN = 1
+WEATHER_SNOW = 2
+
+# ============================================================
+# 8. РЕЦЕПТЫ 
+
+CRAFTING_RECIPES = [
+    ({'type': ITEM_TORCH, 'count': 4}, [(BLOCK_WOOD, 1), (ITEM_COAL, 1)]),
+    ({'type': ITEM_COPPER_INGOT, 'count': 1}, [(BLOCK_COPPER_ORE, 3)]),
+    ({'type': ITEM_IRON_INGOT, 'count': 1}, [(BLOCK_IRON_ORE, 3)]),
+    ({'type': ITEM_GOLD_INGOT, 'count': 1}, [(BLOCK_GOLD_ORE, 3)]),
+    ({'type': ITEM_SWORD_WOOD, 'count': 1}, [(BLOCK_WOOD, 7)]),
+    ({'type': ITEM_PICKAXE_WOOD, 'count': 1}, [(BLOCK_WOOD, 5)]),
+    ({'type': ITEM_SWORD_COPPER, 'count': 1}, [(ITEM_COPPER_INGOT, 5), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_IRON, 'count': 1}, [(ITEM_IRON_INGOT, 8), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_GOLD, 'count': 1}, [(ITEM_GOLD_INGOT, 8), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_DIAMOND, 'count': 1}, [(ITEM_DIAMOND, 5), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_WOOD_SHIELD, 'count': 1}, [(BLOCK_WOOD, 10), (ITEM_BONE, 2)]),
+    ({'type': ITEM_STICK, 'count': 4}, [(BLOCK_WOOD, 2)]),
+    ({'type': BLOCK_PLANKS, 'count': 4}, [(BLOCK_WOOD, 1)]),
+    ({'type': ITEM_SWORD_STONE, 'count': 1}, [(BLOCK_STONE, 2), (ITEM_STICK, 1)]),
+    ({'type': ITEM_PICKAXE_STONE, 'count': 1}, [(BLOCK_STONE, 3), (ITEM_STICK, 2)]),
+    ({'type': ITEM_PICKAXE_DIAMOND, 'count': 1}, [(ITEM_DIAMOND, 3), (ITEM_STICK, 2)]),
+    ({'type': BLOCK_GLASS, 'count': 1}, [(BLOCK_SAND, 1)]),
+    ({'type': BLOCK_BRICK, 'count': 1}, [(BLOCK_STONE, 4)]),
+    ({'type': BLOCK_SANDSTONE, 'count': 1}, [(BLOCK_SAND, 2)]),
+    ({'type': ITEM_APPLE, 'count': 1}, [(BLOCK_LEAVES, 3)]),
+    ({'type': ITEM_BREAD, 'count': 1}, [(ITEM_APPLE, 2), (ITEM_GEL, 1)]),
+    ({'type': ITEM_COOKED_MEAT, 'count': 1}, [(ITEM_GEL, 3), (ITEM_COAL, 1)]),
+    ({'type': ITEM_SILVER_INGOT, 'count': 1}, [(BLOCK_SILVER_ORE, 3)]),
+    ({'type': ITEM_PLATINUM_INGOT, 'count': 1}, [(BLOCK_PLATINUM_ORE, 3)]),
+    ({'type': ITEM_MITHRIL_INGOT, 'count': 1}, [(BLOCK_MITHRIL_ORE, 3)]),
+    ({'type': ITEM_ADAMANTITE_INGOT, 'count': 1}, [(BLOCK_ADAMANTITE_ORE, 3)]),
+    ({'type': ITEM_SWORD_SILVER, 'count': 1}, [(ITEM_SILVER_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_SILVER, 'count': 1}, [(ITEM_SILVER_INGOT, 4), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_PLATINUM, 'count': 1}, [(ITEM_PLATINUM_INGOT, 8), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_PLATINUM, 'count': 1}, [(ITEM_PLATINUM_INGOT, 5), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_MITHRIL, 'count': 1}, [(ITEM_MITHRIL_INGOT, 10), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_MITHRIL, 'count': 1}, [(ITEM_MITHRIL_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_ADAMANTITE, 'count': 1}, [(ITEM_ADAMANTITE_INGOT, 12), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_ADAMANTITE, 'count': 1}, [(ITEM_ADAMANTITE_INGOT, 7), (BLOCK_WOOD, 2)]),
+    ({'type': BLOCK_FENCE, 'count': 8}, [(BLOCK_WOOD, 2), (ITEM_STICK, 4)]),
+    ({'type': BLOCK_LADDER, 'count': 6}, [(BLOCK_WOOD, 3)]),
+    ({'type': BLOCK_ANVIL, 'count': 1}, [(ITEM_IRON_INGOT, 6)]),
+    ({'type': BLOCK_FURNACE, 'count': 1}, [(BLOCK_STONE, 8), (ITEM_COAL, 1)]),
+    ({'type': BLOCK_CHEST, 'count': 1}, [(BLOCK_WOOD, 8)]),
+    ({'type': BLOCK_BOOKSHELF, 'count': 1}, [(BLOCK_WOOD, 6), (ITEM_BOOK, 3)]),
+    ({'type': BLOCK_SNOW, 'count': 4}, [(BLOCK_GRASS, 1)]),
+    ({'type': BLOCK_SANDSTONE_SMOOTH, 'count': 1}, [(BLOCK_SANDSTONE, 1)]),
+    ({'type': BLOCK_OBSIDIAN, 'count': 1}, [(BLOCK_STONE, 2), (ITEM_COAL, 1)]),
+    ({'type': BLOCK_GLOWSTONE, 'count': 1}, [(BLOCK_GLASS, 1), (ITEM_COAL, 1)]),
+    ({'type': ITEM_PIE, 'count': 1}, [(ITEM_APPLE, 3), (ITEM_GEL, 2), (ITEM_WHEAT, 2)]),
+    ({'type': ITEM_SOUP, 'count': 1}, [(ITEM_APPLE, 2), (ITEM_GEL, 1), (ITEM_BOWL, 1)]),
+    ({'type': ITEM_MUSHROOM_SOUP, 'count': 1}, [(ITEM_MUSHROOM, 2), (ITEM_BOWL, 1)]),
+    ({'type': ITEM_COOKED_MUSHROOM, 'count': 1}, [(ITEM_MUSHROOM, 1), (ITEM_COAL, 1)]),
+    ({'type': ITEM_BOW, 'count': 1}, [(ITEM_STICK, 3), (ITEM_STRING, 3)]),
+    ({'type': ITEM_ARROW, 'count': 8}, [(ITEM_STICK, 1), (ITEM_FEATHER, 1), (ITEM_FLINT, 1)]),
+    ({'type': ITEM_PAPER, 'count': 3}, [(BLOCK_WOOD, 1)]),
+    ({'type': ITEM_BOOK, 'count': 1}, [(ITEM_LEATHER, 1), (ITEM_FEATHER, 2), (ITEM_PAPER, 3)]),
+    ({'type': ITEM_TORCH, 'count': 8}, [(ITEM_STICK, 1), (BLOCK_GLOWSTONE, 1)]),
+    ({'type': ITEM_TITAN_INGOT, 'count': 1}, [(BLOCK_TITAN_ORE, 3)]),
+    ({'type': ITEM_COBALT_INGOT, 'count': 1}, [(BLOCK_COBALT_ORE, 3)]),
+    ({'type': ITEM_NETHERITE_INGOT, 'count': 1}, [(BLOCK_NETHERITE_ORE, 3)]),
+    ({'type': ITEM_CRYSTAL_INGOT, 'count': 1}, [(BLOCK_CRYSTAL_ORE, 3)]),
+    ({'type': ITEM_SWORD_TITAN, 'count': 1}, [(ITEM_TITAN_INGOT, 8), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_TITAN, 'count': 1}, [(ITEM_TITAN_INGOT, 5), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_AXE_TITAN, 'count': 1}, [(ITEM_TITAN_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_COBALT, 'count': 1}, [(ITEM_COBALT_INGOT, 8), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_COBALT, 'count': 1}, [(ITEM_COBALT_INGOT, 5), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_AXE_COBALT, 'count': 1}, [(ITEM_COBALT_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_NETHERITE, 'count': 1}, [(ITEM_NETHERITE_INGOT, 10), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_NETHERITE, 'count': 1}, [(ITEM_NETHERITE_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_AXE_NETHERITE, 'count': 1}, [(ITEM_NETHERITE_INGOT, 7), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SWORD_CRYSTAL, 'count': 1}, [(ITEM_CRYSTAL_INGOT, 6), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_PICKAXE_CRYSTAL, 'count': 1}, [(ITEM_CRYSTAL_INGOT, 4), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_HAMMER, 'count': 1}, [(ITEM_IRON_INGOT, 10), (BLOCK_WOOD, 2)]),
+    ({'type': ITEM_SPEAR, 'count': 1}, [(ITEM_IRON_INGOT, 6), (ITEM_STICK, 3)]),
+    ({'type': ITEM_CROSSBOW, 'count': 1}, [(ITEM_IRON_INGOT, 4), (ITEM_STICK, 2), (ITEM_STRING, 2)]),
+    ({'type': ITEM_RUBY, 'count': 1}, [(ITEM_COPPER_INGOT, 2), (ITEM_GEL, 1)]),
+    ({'type': ITEM_SAPPHIRE, 'count': 1}, [(ITEM_IRON_INGOT, 2), (ITEM_GEL, 1)]),
+    ({'type': ITEM_EMERALD, 'count': 1}, [(ITEM_GOLD_INGOT, 2), (ITEM_APPLE, 1)]),
+    ({'type': ITEM_AMETHYST, 'count': 1}, [(ITEM_SILVER_INGOT, 2), (ITEM_GEL, 2)]),
+    ({'type': ITEM_OPAL, 'count': 1}, [(ITEM_PLATINUM_INGOT, 2), (ITEM_GEL, 2)]),
+    ({'type': ITEM_AMBER, 'count': 1}, [(ITEM_GOLD_INGOT, 2), (ITEM_GEL, 3)]),
+    ({'type': ITEM_PIZZA, 'count': 1}, [(ITEM_WHEAT, 2), (ITEM_TOMATO, 2), (ITEM_GEL, 1)]),
+    ({'type': ITEM_BURGER, 'count': 1}, [(ITEM_WHEAT, 2), (ITEM_COOKED_MEAT, 1), (ITEM_TOMATO, 1)]),
+    ({'type': ITEM_SUSHI, 'count': 1}, [(ITEM_FISH_SALMON, 2), (ITEM_WHEAT, 1)]),
+    ({'type': ITEM_CAKE, 'count': 1}, [(ITEM_WHEAT, 3), (ITEM_APPLE, 2), (ITEM_GEL, 2)]),
+    ({'type': ITEM_SALAD, 'count': 1}, [(ITEM_CARROT, 2), (ITEM_CUCUMBER, 2), (ITEM_TOMATO, 1)]),
+    ({'type': ITEM_FRIED_POTATOES, 'count': 1}, [(ITEM_POTATO, 3), (ITEM_COAL, 1)]),
+    ({'type': ITEM_CARROT_JUICE, 'count': 1}, [(ITEM_CARROT, 3), (ITEM_GEL, 1)]),
+    ({'type': ITEM_BANANA, 'count': 1}, [(ITEM_APPLE, 1), (ITEM_GEL, 1)]),
+    ({'type': ITEM_ORANGE, 'count': 1}, [(ITEM_APPLE, 1), (ITEM_GEL, 1)]),
+    ({'type': ITEM_CARROT, 'count': 2}, [(BLOCK_GRASS, 1)]),
+    ({'type': ITEM_POTATO, 'count': 2}, [(BLOCK_DIRT, 1)]),
+    ({'type': ITEM_TOMATO, 'count': 2}, [(ITEM_APPLE, 1), (ITEM_GEL, 1)]),
+    ({'type': ITEM_CUCUMBER, 'count': 2}, [(ITEM_APPLE, 1), (ITEM_WATERING_CAN, 1)]),
+    ({'type': ITEM_FISH_PERCH, 'count': 1}, [(ITEM_GEL, 2), (ITEM_APPLE, 1)]),
+    ({'type': ITEM_FISH_SALMON, 'count': 1}, [(ITEM_GEL, 3), (ITEM_ORANGE, 1)]),
+    ({'type': ITEM_FISH_GOLDFISH, 'count': 1}, [(ITEM_GOLD_INGOT, 1), (ITEM_GEL, 1)]),
+    ({'type': ITEM_FISH_PUFFER, 'count': 1}, [(ITEM_GEL, 4), (ITEM_GEL, 1)]),
+    ({'type': ITEM_FISHING_ROD, 'count': 1}, [(ITEM_STICK, 2), (ITEM_STRING, 2)]),
+    ({'type': ITEM_BAIT, 'count': 4}, [(ITEM_GEL, 1)]),
+    ({'type': BLOCK_DOOR, 'count': 1}, [(BLOCK_WOOD, 6)]),
+    ({'type': BLOCK_WINDOW, 'count': 1}, [(BLOCK_GLASS, 4), (BLOCK_WOOD, 2)]),
+    ({'type': BLOCK_SHUTTER, 'count': 1}, [(BLOCK_WOOD, 4)]),
+    ({'type': BLOCK_PILLAR, 'count': 1}, [(BLOCK_STONE, 4)]),
+    ({'type': BLOCK_STATUE, 'count': 1}, [(BLOCK_STONE, 6), (ITEM_GOLD_INGOT, 1)]),
+    ({'type': BLOCK_CARPET, 'count': 1}, [(ITEM_WOOL, 4)]),
+    ({'type': BLOCK_PAINTING, 'count': 1}, [(BLOCK_WOOD, 2), (ITEM_WOOL, 1), (ITEM_GEL, 1)]),
+    ({'type': BLOCK_FRAME, 'count': 1}, [(BLOCK_WOOD, 2), (BLOCK_GLASS, 1)]),
+    ({'type': BLOCK_SHELF, 'count': 1}, [(BLOCK_WOOD, 3)]),
+    ({'type': BLOCK_BUSH, 'count': 1}, [(BLOCK_LEAVES, 2)]),
+    ({'type': BLOCK_FERN, 'count': 1}, [(BLOCK_GRASS, 1), (ITEM_GEL, 1)]),
+    ({'type': BLOCK_VINE, 'count': 2}, [(BLOCK_LEAVES, 1), (ITEM_STRING, 1)]),
+    ({'type': BLOCK_TULIP_RED, 'count': 1}, [(BLOCK_FLOWER_RED, 1), (ITEM_GEL, 1)]),
+    ({'type': BLOCK_TULIP_YELLOW, 'count': 1}, [(BLOCK_FLOWER_YELLOW, 1), (ITEM_GEL, 1)]),
+    ({'type': BLOCK_DAISY, 'count': 1}, [(BLOCK_FLOWER_RED, 1), (BLOCK_FLOWER_YELLOW, 1)]),
+    ({'type': ITEM_GUITAR, 'count': 1}, [(BLOCK_WOOD, 4), (ITEM_STRING, 3)]),
+    ({'type': ITEM_FLUTE, 'count': 1}, [(ITEM_STICK, 4), (ITEM_GOLD_INGOT, 1)]),
+    ({'type': ITEM_DRUM, 'count': 1}, [(BLOCK_WOOD, 3), (ITEM_LEATHER, 2)]),
+    ({'type': ITEM_HARP, 'count': 1}, [(BLOCK_WOOD, 5), (ITEM_STRING, 4)]),
+    ({'type': ITEM_HOE, 'count': 1}, [(ITEM_IRON_INGOT, 2), (ITEM_STICK, 1)]),
+    ({'type': ITEM_WATERING_CAN, 'count': 1}, [(ITEM_IRON_INGOT, 3), (ITEM_GEL, 2)]),
+    ({'type': ITEM_FERTILIZER, 'count': 2}, [(ITEM_BONE_MEAL, 1), (ITEM_GEL, 1)]),
+    ({'type': ITEM_LEATHER_STRIP, 'count': 2}, [(ITEM_LEATHER, 1)]),
+    ({'type': ITEM_SCALE, 'count': 1}, [(ITEM_FISH_SALMON, 1), (ITEM_IRON_INGOT, 1)]),
+    ({'type': ITEM_SHELL, 'count': 1}, [(ITEM_FISH_PUFFER, 1), (BLOCK_STONE, 1)]),
+    ({'type': ITEM_FEATHER_BLUE, 'count': 1}, [(ITEM_FEATHER, 1), (ITEM_SAPPHIRE, 1)]),
+    ({'type': ITEM_FEATHER_RED, 'count': 1}, [(ITEM_FEATHER, 1), (ITEM_RUBY, 1)]),
+    ({'type': ITEM_FEATHER_GREEN, 'count': 1}, [(ITEM_FEATHER, 1), (ITEM_EMERALD, 1)]),
+    ({'type': ITEM_BONE_MEAL, 'count': 2}, [(ITEM_BONE, 1)]),
+    ({'type': ITEM_WOOL, 'count': 2}, [(ITEM_STRING, 2)]),
+    ({'type': ITEM_SPELLBOOK_FIRE, 'count': 1}, [(ITEM_BOOK, 1), (ITEM_RUBY, 3)]),
+    ({'type': ITEM_SPELLBOOK_ICE, 'count': 1}, [(ITEM_BOOK, 1), (ITEM_SAPPHIRE, 3)]),
+    ({'type': ITEM_SPELLBOOK_HEAL, 'count': 1}, [(ITEM_BOOK, 1), (ITEM_EMERALD, 3)]),
+    ({'type': ITEM_SPELLBOOK_TELEPORT, 'count': 1}, [(ITEM_BOOK, 1), (ITEM_AMETHYST, 3)]),
+    ({'type': ITEM_SCROLL_TELEPORT, 'count': 1}, [(ITEM_SPELLBOOK_TELEPORT, 1), (ITEM_FEATHER, 1)]),
+]
+
+# ============================================================
+# 9. ДОПОЛНИТЕЛЬНЫЕ ГРУППЫ ДЛЯ УДОБСТВА (новое)
+# ============================================================
+
+# Непроходимые блоки (для коллизий и проверок)
+NON_SOLID_BLOCKS = {
+    BLOCK_LEAVES, BLOCK_TALL_GRASS, BLOCK_FLOWER_RED, BLOCK_FLOWER_YELLOW,
+    BLOCK_FLOWER_BLUE, BLOCK_BUSH, BLOCK_FERN, BLOCK_VINE,
+    BLOCK_TULIP_RED, BLOCK_TULIP_YELLOW, BLOCK_DAISY
+}
+
+# Блоки, которые можно размещать (для клика правой кнопкой)
+PLACEABLE_BLOCKS = {
+    BLOCK_DIRT, BLOCK_GRASS, BLOCK_STONE, BLOCK_WOOD,
+    BLOCK_LEAVES, BLOCK_COPPER_ORE, BLOCK_IRON_ORE,
+    BLOCK_GOLD_ORE, BLOCK_COAL_ORE,
+    BLOCK_TALL_GRASS, BLOCK_FLOWER_RED, BLOCK_FLOWER_YELLOW, BLOCK_FLOWER_BLUE,
+    BLOCK_PLANKS, BLOCK_BRICK, BLOCK_GLASS, BLOCK_SAND, BLOCK_SANDSTONE,
+    BLOCK_FENCE, BLOCK_LADDER, BLOCK_ANVIL, BLOCK_FURNACE,
+    BLOCK_CHEST, BLOCK_BOOKSHELF, BLOCK_SNOW, BLOCK_CACTUS,
+    BLOCK_SANDSTONE_SMOOTH, BLOCK_OBSIDIAN, BLOCK_GLOWSTONE,
+    BLOCK_SILVER_ORE, BLOCK_PLATINUM_ORE, BLOCK_MITHRIL_ORE, BLOCK_ADAMANTITE_ORE,
+    BLOCK_TITAN_ORE, BLOCK_COBALT_ORE, BLOCK_NETHERITE_ORE, BLOCK_CRYSTAL_ORE,
+    BLOCK_DOOR, BLOCK_WINDOW, BLOCK_SHUTTER, BLOCK_PILLAR,
+    BLOCK_STATUE, BLOCK_CARPET, BLOCK_PAINTING, BLOCK_FRAME, BLOCK_SHELF,
+    BLOCK_BUSH, BLOCK_FERN, BLOCK_VINE,
+    BLOCK_TULIP_RED, BLOCK_TULIP_YELLOW, BLOCK_DAISY
+}
+
+# Еда и лечение (восстанавливаемое здоровье)
+FOOD_HEAL = {
+    ITEM_APPLE: 10, ITEM_BREAD: 20, ITEM_COOKED_MEAT: 35,
+    ITEM_PIE: 50, ITEM_SOUP: 30, ITEM_MUSHROOM_SOUP: 35,
+    ITEM_COOKED_MUSHROOM: 20, ITEM_PIZZA: 60, ITEM_BURGER: 70,
+    ITEM_SUSHI: 50, ITEM_CAKE: 80, ITEM_SALAD: 40,
+    ITEM_FRIED_POTATOES: 30, ITEM_CARROT_JUICE: 25
+}
+
+# Урон оружия (для быстрого доступа)
+WEAPON_DAMAGE = {
+    ITEM_SWORD_WOOD: 12,
+    ITEM_SWORD_COPPER: 18,
+    ITEM_SWORD_IRON: 28,
+    ITEM_SWORD_GOLD: 38,
+    ITEM_SWORD_DIAMOND: 55,
+    ITEM_SWORD_STONE: 16,
+    ITEM_SWORD_SILVER: 45,
+    ITEM_SWORD_PLATINUM: 55,
+    ITEM_SWORD_MITHRIL: 70,
+    ITEM_SWORD_ADAMANTITE: 90,
+    ITEM_SWORD_TITAN: 100,
+    ITEM_SWORD_COBALT: 120,
+    ITEM_SWORD_NETHERITE: 150,
+    ITEM_SWORD_CRYSTAL: 180,
+    ITEM_HAMMER: 200,
+    ITEM_SPEAR: 70,
+    ITEM_CROSSBOW: 50,
+    ITEM_AXE_TITAN: 90,
+    ITEM_AXE_COBALT: 110,
+    ITEM_AXE_NETHERITE: 140,
+}
