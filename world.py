@@ -95,7 +95,8 @@ class GameWorld:
 
         depths = WORLD_HEIGHT - np.arange(WORLD_HEIGHT)[:, None]
         
-        rand = np.random.rand(WORLD_HEIGHT, CHUNK_WIDTH)   # без rng_np
+        rng_np = np.random.RandomState(seed)
+        rand = rng_np.rand(WORLD_HEIGHT, CHUNK_WIDTH)
         
         stone_mask = (chunk == BLOCK_STONE)
 
