@@ -337,7 +337,7 @@ class Game:
             traceback.print_exc()
 
     def is_night(self):
-    return NIGHT_START <= (self.day_time % 24000) <= NIGHT_END
+        return NIGHT_START <= (self.day_time % 24000) <= NIGHT_END
 
     # ---------- переключения ----------
     def toggle_fullscreen(self):
