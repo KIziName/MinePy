@@ -56,7 +56,6 @@ class GameInventory(EventPublisher):
             return False
 
     def can_craft(self, ingredients):
-        # Без try/except – ошибка должна быть видна
         for itype, count in ingredients:
             total = sum(s['count'] for s in self.slots if s['type'] == itype)
             if total < count:
@@ -64,7 +63,6 @@ class GameInventory(EventPublisher):
         return True
 
     def can_add_item(self, item_type, count):
-        # Без try/except
         remaining = count
         for slot in self.slots:
             if slot['type'] == item_type:
@@ -104,12 +102,10 @@ class GameInventory(EventPublisher):
             return False
 
     def swap_slots(self, idx1, idx2):
-        # Без try/except
         self.slots[idx1], self.slots[idx2] = self.slots[idx2], self.slots[idx1]
         self.notify('inventory_updated')
 
     def get_slot(self, idx):
-        # Без try/except
         return self.slots[idx]
 
     def to_dict(self):
@@ -341,7 +337,7 @@ class Game:
             traceback.print_exc()
 
     def is_night(self):
-        return 11000 <= (self.day_time % 24000) <= 23000
+    return NIGHT_START <= (self.day_time % 24000) <= NIGHT_END
 
     # ---------- переключения ----------
     def toggle_fullscreen(self):
