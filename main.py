@@ -6,7 +6,6 @@ from game import Game
 def main():
     game = None
     try:
-        # Явная инициализация pygame (если Game не делает этого)
         pygame.init()
 
         game = Game()
@@ -28,7 +27,7 @@ def main():
 
             pygame.display.flip()
 
-            # Счётчик FPS (не влияет на логику)
+            # Счётчик FPS 
             game.fps_counter += 1
             now = time.time()
             if now - game.last_fps_time >= 1.0:
@@ -43,7 +42,6 @@ def main():
         import traceback
         traceback.print_exc()
     finally:
-        # Корректное завершение
         if game is not None:
             if hasattr(game, 'world') and hasattr(game.world, 'stop'):
                 game.world.stop()
