@@ -5,6 +5,7 @@ import sys
 
 from blocks import *
 from data import ITEM_NAMES, CRAFTING_RECIPES   
+from mobs import Slime, Zombie, DemonEye, Skeleton, Sheep
 
 class GameRenderer:
     def __init__(self, game):
