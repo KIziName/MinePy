@@ -3,7 +3,7 @@ import weakref
 class EventPublisher:
     """Миксин для классов, генерирующих события. Хранит подписчиков через слабые ссылки."""
     def __init__(self):
-        self._listeners = {}   # event_type -> list of weakrefs to bound methods
+        self._listeners = {} 
 
     def subscribe(self, event_type, callback):
         if event_type not in self._listeners:
